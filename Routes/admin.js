@@ -38,7 +38,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-const uploadone = multer({ storageone });
+const uploadone = multer({ storage: storageone });
 adminUploadRoutes.post(
   "/signup/upload",
   uploadone.single("file"),
