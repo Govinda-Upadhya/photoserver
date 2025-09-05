@@ -22,7 +22,7 @@ export const handleSignupUpload = async (req, res) => {
   }
 
   // Ensure path exists and normalize slashes
-  const filePath = req.file.path || "";
+  const filePath = req.file.path;
   const relativePath = filePath.replace(/\\/g, "/").replace(/^uploads\//, "");
   const fileUrl = `${base_url}/photos/${relativePath}`;
 
@@ -30,6 +30,7 @@ export const handleSignupUpload = async (req, res) => {
     message: "File uploaded successfully!",
     url: fileUrl,
     relativePath,
+    filePath,
   });
 };
 export const adminUploadDelete = async (req, res) => {
