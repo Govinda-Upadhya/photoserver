@@ -17,9 +17,15 @@ export const adminUploads = async (req, res) => {
   res.json({ message: "Files uploaded successfully!", urls: fileUrls });
 };
 export const handleSignupUpload = async (req, res) => {
-  if (!req.file) return res.status(400).json({ message: "No file uploaded" });
-  const relativePath = req.file.path.replace("uploads/", "");
+  if (!req.file) {
+    return res.status(400).json({ message: "No file uploaded" });
+  }
+
+  // Ensure path exists and normalize slashes
+  const filePath = req.file.path || "";
+  const relativePath = filePath.replace(/\\/g, "/").replace(/^uploads\//, "");
   const fileUrl = `${base_url}/photos/${relativePath}`;
+
   res.json({ message: "File uploaded successfully!", url: fileUrl });
 };
 export const adminUploadDelete = async (req, res) => {
