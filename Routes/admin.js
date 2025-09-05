@@ -14,7 +14,7 @@ const adminUploadRoutes = Router();
 
 const storageone = multer.diskStorage({
   destination: (req, file, cb) => {
-    const { usermail } = req.body;
+    const { usermail } = req.query;
     if (!usermail) return cb(new Error("admin cannot be created"), null);
     const dir = path.join("uploads", usermail);
     fs.mkdirSync(dir, { recursive: true });
