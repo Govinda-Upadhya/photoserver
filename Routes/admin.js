@@ -6,11 +6,24 @@ import {
   adminUpload,
   adminUploadDelete,
   adminUploads,
+  handleSignupUpload,
 } from "../Controllers/adminHandler.js";
 import { adminMiddleware } from "../auth.js";
 
 const adminUploadRoutes = Router();
 
+const storageone = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const { usermail } = req.body;
+    if (!usermail) return cb(new Error("admin cannot be created"), null);
+    const dir = path.join("uploads", usermail);
+    fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const username = req.admin;
@@ -25,6 +38,12 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+const uploadone = multer({ storageone });
+adminUploadRoutes.post(
+  "/signup/upload",
+  uploadone.single("file"),
+  handleSignupUpload
+);
 
 adminUploadRoutes.post(
   "/upload",
