@@ -12,7 +12,7 @@ export const adminUploads = async (req, res) => {
   }
   const fileUrls = req.files.map((file) => {
     const relativePath = file.path.replace("uploads/", "");
-    return `${base_url}/photos/${relativePath}`;
+    return `${base_url}/api/photo/photos/${relativePath}`;
   });
   res.json({ message: "Files uploaded successfully!", urls: fileUrls });
 };
@@ -20,10 +20,7 @@ export const handleSignupUpload = async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "No file uploaded" });
   }
-  console.log("req.file:", req.file);
-  console.log("req.body:", req.body);
 
-  // Ensure path exists and normalize slashes
   const filePath = req.file.path;
   const relativePath = filePath.replace("uploads/", "");
   const fileUrl = `${base_url}/api/photo/photos/${relativePath}`;
