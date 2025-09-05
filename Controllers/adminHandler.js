@@ -26,7 +26,11 @@ export const handleSignupUpload = async (req, res) => {
   const relativePath = filePath.replace(/\\/g, "/").replace(/^uploads\//, "");
   const fileUrl = `${base_url}/photos/${relativePath}`;
 
-  res.json({ message: "File uploaded successfully!", url: fileUrl });
+  res.json({
+    message: "File uploaded successfully!",
+    url: fileUrl,
+    relativePath,
+  });
 };
 export const adminUploadDelete = async (req, res) => {
   const { url } = req.body;
