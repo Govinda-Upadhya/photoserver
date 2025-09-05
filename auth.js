@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 export const adminMiddleware = async (req, res, next) => {
   try {
     const token = req.cookies?.token;
-    console.log(token);
+
     if (!token) {
       return res
         .status(401)
@@ -12,7 +12,7 @@ export const adminMiddleware = async (req, res, next) => {
 
     const decoded = jwt.verify(token, JWT_SECRET);
 
-    req.admin = decoded;
+    req.admin = decoded.email.split("@")[0];
     next();
   } catch (error) {
     console.error("Auth error:", error.message);
