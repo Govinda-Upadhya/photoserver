@@ -34,11 +34,18 @@ export const handleSignupUpload = async (req, res) => {
 };
 export const adminUploadDelete = async (req, res) => {
   const { url } = req.body;
-  const path = url.split("/").splice(4, 2);
-  const main = `uploads/${path[0]}/${path[1]}`;
+  const parts = url.split("/");
+  const [username, filename] = parts.slice(-2);
+  const main = `uploads/${username}/${filename}`;
 
   try {
-    await fs.unlink(main);
+    for (const fileUrl of url) {
+      const parts = fileUrl.split("/");
+      const [username, filename] = parts.slice(-2);
+      const main = `uploads/${username}/${filename}`;
+
+      await fs.unlink(main);
+    }
 
     return res.status(200).json({ msg: "deleted successfully" });
   } catch (err) {

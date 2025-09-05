@@ -39,6 +39,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 const uploadone = multer({ storage: storageone });
+
+adminUploadRoutes.delete("/delete", adminUploadDelete);
 adminUploadRoutes.post(
   "/signup/upload",
   uploadone.single("file"),
@@ -58,6 +60,5 @@ adminUploadRoutes.post(
   upload.array("files", 5),
   adminUploads
 );
-adminUploadRoutes.delete("/delete", adminMiddleware, adminUploadDelete);
 
 export default adminUploadRoutes;
