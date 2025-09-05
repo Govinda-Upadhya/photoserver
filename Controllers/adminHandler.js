@@ -25,7 +25,7 @@ export const handleSignupUpload = async (req, res) => {
 
   // Ensure path exists and normalize slashes
   const filePath = req.file.path;
-  const relativePath = filePath.replace("uploads", "");
+  const relativePath = filePath.replace("uploads/", "");
   const fileUrl = `${base_url}/photos/${relativePath}`;
 
   res.json({
