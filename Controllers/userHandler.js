@@ -9,7 +9,8 @@ export const userUpload = async (req, res) => {
 
 export const userUploadDelete = async (req, res) => {
   const { url } = req.body;
-  const [username, filename] = url.slice(-2);
+  const parts = url.split("/");
+  const [username, filename] = parts.slice(-2);
   const main = `uploads/${username}/${filename}`;
 
   try {
