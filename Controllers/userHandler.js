@@ -3,15 +3,14 @@ import fs from "fs/promises";
 export const userUpload = async (req, res) => {
   if (!req.file) return res.status(400).json({ message: "No file uploaded" });
   const relativePath = req.file.path.replace("uploads/", "");
-  const fileUrl = `${base_url}/photos/${relativePath}`;
+  const fileUrl = `${base_url}/api/photo/photos/${relativePath}`;
   res.json({ message: "File uploaded successfully!", url: fileUrl });
 };
 
 export const userUploadDelete = async (req, res) => {
   const { url } = req.body;
-  const path = url.split("/").splice(4, 2);
-
-  const main = `uploads/${path[0]}/${path[1]}`;
+  const [username, filename] = parts.slice(-2);
+  const main = `uploads/${username}/${filename}`;
 
   try {
     await fs.unlink(main);
