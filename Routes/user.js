@@ -20,4 +20,4 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 userUploadRouter.post("/upload", upload.single("file"), userUpload);
-userUploadRouter.delete("/delete", upload.single("file"), userUploadDelete);
+userUploadRouter.delete("/delete", userUploadDelete);
