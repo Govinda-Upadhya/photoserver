@@ -18,6 +18,6 @@ export const userUploadDelete = async (req, res) => {
     return res.status(200).json({ msg: "deleted successfully" });
   } catch (err) {
     console.error("Error deleting file:", err);
-    return res.status(400).json({ msg: "couldnt delete the image" });
+    return res.status(400).json({ msg: "couldnt delete the image", err: err });
   }
 };
