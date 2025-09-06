@@ -34,9 +34,6 @@ export const handleSignupUpload = async (req, res) => {
 };
 export const adminUploadDelete = async (req, res) => {
   const { url } = req.body;
-  const parts = url.split("/");
-  const [username, filename] = parts.slice(-2);
-  const main = `uploads/${username}/${filename}`;
 
   try {
     for (const fileUrl of url) {
