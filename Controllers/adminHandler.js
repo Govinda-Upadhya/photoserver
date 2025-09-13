@@ -3,7 +3,7 @@ import fs from "fs/promises";
 export const adminUpload = async (req, res) => {
   if (!req.file) return res.status(400).json({ message: "No file uploaded" });
   const relativePath = req.file.path.replace("uploads/", "");
-  const fileUrl = `${base_url}/photos/${relativePath}`;
+  const fileUrl = `${base_url}/api/photo/photos/${relativePath}`;
   res.json({ message: "File uploaded successfully!", url: fileUrl });
 };
 export const adminUploads = async (req, res) => {
